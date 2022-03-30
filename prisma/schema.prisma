@@ -1,0 +1,32 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int       @id @unique @default(autoincrement())
+  name      String    @db.VarChar(100)
+  password  String
+  email     String    @unique @db.VarChar(100)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Lagging {
+  id            Int       @id @unique @default(autoincrement())
+  flag          String    @db.VarChar(100)
+  isEdit        Boolean
+  type          String    @db.VarChar(100)
+  name          String    @db.VarChar(100)
+  placeholder   String    @db.VarChar(100)
+  defaultValue  String    @db.VarChar(100)
+  formula       String?   @db.VarChar(100)
+  valuedForFlag String[]
+  valuedByFlag  String[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
